@@ -1,41 +1,47 @@
-<style type="text/css">
-  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
-  }
-</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.min.css" type="text/css" rel="stylesheet">
 <div ng-app="karaoke">
-  <input type="search" ng-model="query" placeholder="search" autofocus />
-  <select ng-model="style" ng-options="item for item in styles">
-    <option value=''>Any</option>
-  </select>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Artist</th>
-        <th>Year</th>
-      </tr>
-    </thead>
-    <tbody class="ng-cloak">
-      <tr ng-repeat="song in songs | filter:{search:query, styles:style||''} | limitTo:100">
-        <td>{{song.title}}</td>
-        <td>{{song.artist}}</td>
-        <td>{{song.year}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-input-container>
+        <label>Search</label>
+        <input type="search" ng-model="query" />
+      </md-input-container>
+      <md-input-container>
+        <label>Category</label>
+        <md-select ng-model="style">
+          <md-option value=''>Any</md-option>
+          <md-option ng-repeat="item in styles" value="{{item}}">
+            {{item}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+  </md-toolbar>
+  <md-content class="ng-cloak" flex>
+    <md-list>
+      <md-list-item class="md-2-line" ng-repeat="song in songs | filter:{search:query, styles:style||''} | limitTo:100">
+        <div class="md-list-item-text">
+          <h3>{{song.title}}</h3>
+          <p>{{song.artist}}</p>
+          <div class="md-secondary">{{song.year}}</div>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-content>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-animate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-aria.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.min.js"></script>
 <script>
   angular
-    .module('karaoke', [])
+    .module('karaoke', ['ngMaterial'])
     .run(function($rootScope, $http) {
       $http.get('e7ae9ce86b75e42f72cb27b0ca2b31c0.csv').success(function(data) {
         var styles = {};
 
-        data = data.split("\n");
-        data.shift();
+        data = data.split("\n").slice(1);
         $rootScope.songs = data.map(function(line) {
           if (!line) return;
           var values = line.split(";"),
