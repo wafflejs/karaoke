@@ -6,10 +6,10 @@
   </head>
   <body ng-app="karaoke" ng-controller="index as index">
     <header>
-      <input ng-model="query" placeholder="Search" autofocus />
+      <input ng-model="query" placeholder="Search by artist or title" autofocus />
     </header>
     <ul class="ng-cloak">
-      <li ng-repeat="song in index.songs | filter:query | limitTo:1000">
+      <li ng-repeat="song in index.songs | filter:query | limitTo:1000" ng-click="index.request(song)">
         <h3>
           {{song.title}}
           <small>{{song.artist}} <span ng-show="song.duo">👥</span></small>
@@ -43,6 +43,14 @@
             });
           }.bind(this));
         }
+
+        Index.prototype.request = function(song) {
+          sessionStorage.name = sessionStorage.name || prompt('Who wants to sing?');
+          if (confirm('Request ' + song.title + ' for ' + sessionStorage.name + '?')) {
+          } else {
+            delete sessionStorage.name;
+          }
+        };
       })();
     </script>
   </body>

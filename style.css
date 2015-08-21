@@ -21,6 +21,7 @@ header {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+  background: linear-gradient(hsla(0, 0%, 100%, 1), hsla(0, 0%, 100%, 0));
 }
 
 input {
