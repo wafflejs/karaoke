@@ -9,6 +9,7 @@
       <input ng-model="query" placeholder="Search by artist or title" autofocus />
     </header>
     <ul class="ng-cloak">
+      <li ng-hide="index.songs">🎵 Loading</li>
       <li ng-repeat="song in index.songs | filter:query | limitTo:1000" ng-click="index.request(song)">
         <h3>
           {{song.title}}
