@@ -7,6 +7,8 @@
   </head>
   <body ng-app="karaoke" ng-controller="index as index">
     <div class="modal" ng-show="index.confirm" ng-click="index.confirm = null">
+      <h1>{{index.confirm.title}}</h1>
+      <h2>by {{index.confirm.artist}}</h2>
       <button ng-click="index.request(index.confirm)">Request for {{index.singer}}</button>
       <p>Cancel</p>
     </div>
