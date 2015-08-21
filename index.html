@@ -10,21 +10,24 @@
       <input type="text" ng-model="query" placeholder="Search by artist or title" autofocus />
     </header>
     <main class="ng-cloak">
-      <h5>
-        <label>
-          <input type="checkbox" ng-model="showQueue" />
+      <div class="queue" ng-click="showQueue = !showQueue">
+        <h4>
+          <code ng-switch="showQueue">
+            <span ng-switch-when="true">▾</span>
+            <span ng-switch-default>▸</span>
+          </code>
           {{index.queue.length}} in queue
-        </label>
-      </h5>
-      <ul class="queue" ng-show="showQueue">
-        <li ng-repeat="request in index.queue">
-          <h3>
-            {{request.song.title}}
-            <small>{{request.song.artist}} <span ng-show="song.duo">👥</span></small>
-          </h3>
-          <small>{{request.singer}}</small>
-        </li>
-      </ul>
+        </h4>
+        <ul class="queue" ng-show="showQueue">
+          <li ng-repeat="request in index.queue">
+            <h3>
+              {{request.song.title}}
+              <small>{{request.song.artist}} <span ng-show="song.duo">👥</span></small>
+            </h3>
+            <small>{{request.singer}}</small>
+          </li>
+        </ul>
+      </div>
 
       <ul>
         <li ng-repeat="song in index.songs | filter:query | limitTo:1000" ng-click="index.request(song)">
@@ -71,9 +74,10 @@
         }
 
         Index.prototype.request = function(song) {
-          sessionStorage.name = sessionStorage.name || prompt('Who wants to sing?');
-          if (confirm('Request ' + song.title + ' for ' + sessionStorage.name + '?')) {
-            this.queue.$add({ song: song, singer: sessionStorage.name });
+          var name = sessionStorage.name = sessionStorage.name ||
+            prompt('Who wants to sing?');
+          if (name && confirm('Request ' +song.title+' for '+name+'?')) {
+            this.queue.$add({ song: song, singer: name });
           } else {
             delete sessionStorage.name;
           }

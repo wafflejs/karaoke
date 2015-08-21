@@ -9,6 +9,7 @@ body, input {
 body {
   padding: 0;
   margin: 0;
+  -webkit-user-select: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -36,14 +37,15 @@ main {
   padding-top: 4rem;
 }
 
-h2, h5 {
+h2, h4 {
   text-align: center;
 }
 
-input[type=checkbox] {
-  position: absolute;
-  left: -271828px;
-  top: 0;
+.queue {
+  background-color: hsla(210, 25%, 90%, 1);
+}
+.queue ul {
+  border-bottom: dashed 2px hsla(0, 0%, 0%, .1);
 }
 
 ul {
@@ -69,12 +71,4 @@ h3 small {
 
 small {
   color: hsla(0, 0%, 0%, .4);
-}
-
-h5 {
-  background-color: hsla(210, 25%, 90%, 1);
-}
-ul.queue {
-  background-color: hsla(210, 25%, 90%, 1);
-  border-bottom: dashed 2px hsla(0, 0%, 0%, .1);
 }
