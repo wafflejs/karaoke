@@ -2,7 +2,7 @@
   display: none !important
 }
 
-body, input {
+body, input, button {
   font: medium/150% sans-serif;
 }
 
@@ -10,12 +10,17 @@ body {
   padding: 0;
   margin: 0;
   -webkit-user-select: none;
+  user-select: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
   margin: 0;
 }
+
+*[ng-click] {
+  -webkit-tap-highlight-color: transparent;
+}  
 
 header {
   position: fixed;
@@ -25,12 +30,16 @@ header {
   background: linear-gradient(hsla(0, 0%, 100%, 1), hsla(0, 0%, 100%, 0));
 }
 
-input[type=text] {
+input[type=text], button {
   width: 100%;
   font-size: large;
   box-sizing: border-box;
   padding: 5px;
   border: solid 1px hsla(0, 0%, 0%, .1);
+}
+
+button {
+  background-color: hsla(210, 25%, 90%, 1);
 }
 
 main {
@@ -58,10 +67,19 @@ li {
   display: -webkit-flex;
   -webkit-justify-content: space-between;
   -webkit-align-items: center;
+  -webkit-flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: 10px;
+}
+
+li button {
+  width: 100%;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
+  margin-top: .5em;
 }
 
 li + li {
