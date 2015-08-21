@@ -6,11 +6,15 @@
     <meta name="viewport" content="initial-scale=1">
   </head>
   <body ng-app="karaoke" ng-controller="index as index">
+    <div class="modal" ng-show="index.confirm" ng-click="index.confirm = null">
+      <button ng-click="index.request(index.confirm)">Request for {{index.singer}}</button>
+      <p>Cancel</p>
+    </div>
     <header>
       <input type="text" ng-model="query" ng-model-options="{ debounce: 300 }" placeholder="Search by artist or title" />
     </header>
     <main class="ng-cloak">
-      <div class="queue" ng-click="showQueue = !showQueue">
+      <div class="queue" ng-show="index.songs" ng-click="showQueue = !showQueue">
         <h4>
           <code ng-switch="showQueue">
             <span ng-switch-when="true">▾</span>
@@ -18,7 +22,7 @@
           </code>
           {{index.queue.length}} in queue
         </h4>
-        <ul class="queue" ng-show="showQueue">
+        <ul ng-show="showQueue">
           <li ng-repeat="request in index.queue">
             <h3>
               {{request.song.title}}
@@ -30,13 +34,12 @@
       </div>
 
       <ul>
-        <li ng-repeat="song in index.songs | filter:query | limitTo:1000" ng-click="index.confirmRequest=song">
+        <li ng-repeat="song in index.songs | filter:{search:query} | limitTo:500" ng-click="index.confirm = song">
           <h3>
             {{song.title}}
             <small>{{song.artist}} <span ng-show="song.duo">👥</span></small>
           </h3>
           <small>{{song.year}}</small>
-          <button ng-show="index.confirmRequest === song" ng-click="index.request(song)">Request for {{index.singer}}</button>
         </li>
       </ul>
 
@@ -44,13 +47,14 @@
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-animate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular-touch.min.js"></script>
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
     <script>
       (function() {
         angular
-          .module('karaoke', ['ngTouch', 'firebase'])
+          .module('karaoke', ['ngAnimate', 'ngTouch', 'firebase'])
           .controller('index', Index);
 
         function Index($http, $firebaseArray) {
@@ -66,6 +70,7 @@
                   artist = values[1].replace(/"/g, '');
 
               return {
+                search: String([title, artist]),
                 title: title,
                 artist: artist,
                 year: values[2],
