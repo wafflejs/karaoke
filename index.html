@@ -9,7 +9,6 @@
       <input type="text" ng-model="query" placeholder="Search by artist or title" autofocus />
     </header>
     <main class="ng-cloak">
-      <h2 ng-hide="index.songs">🎵 Loading</h2>
       <h5>
         <label>
           <input type="checkbox" ng-model="showQueue" />
@@ -35,6 +34,8 @@
           <small>{{song.year}}</small>
         </li>
       </ul>
+
+      <h2 ng-hide="index.songs">🎵 Loading</h2>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
