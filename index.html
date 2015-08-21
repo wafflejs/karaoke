@@ -6,15 +6,15 @@
     <meta name="viewport" content="initial-scale=1">
   </head>
   <body ng-app="karaoke" ng-controller="index as index">
-    <div class="modal" ng-show="index.confirm" ng-click="index.confirm = null">
+    <header>
+      <input type="text" ng-model="query" ng-model-options="{ debounce: 300 }" placeholder="Search by artist or title" />
+    </header>
+    <div class="modal ng-cloak" ng-show="index.confirm" ng-click="index.confirm = null">
       <h1>{{index.confirm.title}}</h1>
       <h2>by {{index.confirm.artist}}</h2>
       <button ng-click="index.request(index.confirm)">Request for {{index.singer}}</button>
       <p>Cancel</p>
     </div>
-    <header>
-      <input type="text" ng-model="query" ng-model-options="{ debounce: 300 }" placeholder="Search by artist or title" />
-    </header>
     <main class="ng-cloak">
       <div class="queue" ng-show="index.songs" ng-click="showQueue = !showQueue">
         <h4>
@@ -27,10 +27,10 @@
         <ul ng-show="showQueue">
           <li ng-repeat="request in index.queue">
             <h3>
-              {{request.song.title}}
-              <small>{{request.song.artist}} <span ng-show="song.duo">👥</span></small>
+              {{::request.song.title}}
+              <small>{{::request.song.artist}} <span ng-show="song.duo">👥</span></small>
             </h3>
-            <small>{{request.singer}}</small>
+            <small>{{::request.singer}}</small>
           </li>
         </ul>
       </div>
@@ -38,10 +38,10 @@
       <ul>
         <li ng-repeat="song in index.songs | filter:{search:query} | limitTo:500" ng-click="index.confirm = song">
           <h3>
-            {{song.title}}
-            <small>{{song.artist}} <span ng-show="song.duo">👥</span></small>
+            {{::song.title}}
+            <small>{{::song.artist}} <span ng-show="song.duo">👥</span></small>
           </h3>
-          <small>{{song.year}}</small>
+          <small>{{::song.year}}</small>
         </li>
       </ul>
 
