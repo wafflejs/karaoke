@@ -55,6 +55,9 @@ ul {
 }
 
 li {
+  display: -webkit-flex;
+  -webkit-justify-content: space-between;
+  -webkit-align-items: center;
   display: flex;
   justify-content: space-between;
   align-items: center;
