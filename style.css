@@ -24,7 +24,7 @@ header {
   background: linear-gradient(hsla(0, 0%, 100%, 1), hsla(0, 0%, 100%, 0));
 }
 
-input {
+input[type=text] {
   width: 100%;
   font-size: large;
   box-sizing: border-box;
@@ -32,10 +32,24 @@ input {
   border: solid 1px hsla(0, 0%, 0%, .1);
 }
 
+main {
+  padding-top: 4rem;
+}
+
+h2, h5 {
+  text-align: center;
+}
+
+input[type=checkbox] {
+  position: absolute;
+  left: -271828px;
+  top: 0;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
-  padding: 4rem 0;
+  padding: 0;
 }
 
 li {
@@ -55,4 +69,12 @@ h3 small {
 
 small {
   color: hsla(0, 0%, 0%, .4);
+}
+
+h5 {
+  background-color: hsla(210, 25%, 90%, 1);
+}
+ul.queue {
+  background-color: hsla(210, 25%, 90%, 1);
+  border-bottom: dashed 2px hsla(0, 0%, 0%, .1);
 }
