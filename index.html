@@ -1,62 +1,49 @@
-<style type="text/css">
-  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
-  }
-</style>
-<div ng-app="karaoke">
-  <input type="search" ng-model="query" placeholder="search" autofocus />
-  <select ng-model="style" ng-options="item for item in styles">
-    <option value=''>Any</option>
-  </select>
-  <table>
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Artist</th>
-        <th>Year</th>
-      </tr>
-    </thead>
-    <tbody class="ng-cloak">
-      <tr ng-repeat="song in songs | filter:{search:query, styles:style||''} | limitTo:100">
-        <td>{{song.title}}</td>
-        <td>{{song.artist}}</td>
-        <td>{{song.year}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Karaoke</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+  </head>
+  <body ng-app="karaoke" ng-controller="index as index">
+    <header>
+      <input ng-model="query" placeholder="Search" autofocus />
+    </header>
+    <ul class="ng-cloak">
+      <li ng-repeat="song in index.songs | filter:query | limitTo:1000">
+        <h3>
+          {{song.title}}
+          <small>{{song.artist}} <span ng-show="song.duo">👥</span></small>
+        </h3>
+        <small>{{song.year}}</small>
+      </li>
+    </ul>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
-<script>
-  angular
-    .module('karaoke', [])
-    .run(function($rootScope, $http) {
-      $http.get('e7ae9ce86b75e42f72cb27b0ca2b31c0.csv').success(function(data) {
-        var styles = {};
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js"></script>
+    <script>
+      (function() {
+        angular
+          .module('karaoke', [])
+          .controller('index', Index);
 
-        data = data.split("\n");
-        data.shift();
-        $rootScope.songs = data.map(function(line) {
-          if (!line) return;
-          var values = line.split(";"),
-              title = values[0].replace(/"/g, ''),
-              artist = values[1].replace(/"/g, '');
+        function Index($http) {
+          var csv = 'e7ae9ce86b75e42f72cb27b0ca2b31c0.csv';
+          $http.get(csv).success(function(data) {
+            this.songs = data.split('\n').slice(1).map(function(line) {
+              if (!line) return;
+              var values = line.split(';'),
+                  title = values[0].replace(/"/g, ''),
+                  artist = values[1].replace(/"/g, '');
 
-          values[6].split(",").forEach(function(style) {
-            styles[style.replace(/"/g, '')] = true;
-          });
-
-          return {
-            search: String([ title, artist ]),
-            title: title,
-            artist: artist,
-            year: values[2],
-            duo: values[3] === "1",
-            styles: values[6],
-          };
-        });
-
-        $rootScope.styles = Object.keys(styles).sort();
-      });
-    });
-</script>
+              return {
+                title: title,
+                artist: artist,
+                year: values[2],
+                duo: values[3] === '1',
+              };
+            });
+          }.bind(this));
+        }
+      })();
+    </script>
+  </body>
+</html>

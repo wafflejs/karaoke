@@ -1,0 +1,57 @@
+.ng-cloak {
+  display: none !important
+}
+
+body, input {
+  font: medium/150% sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+  margin: 0;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input {
+  width: 100%;
+  font-size: large;
+  box-sizing: border-box;
+  padding: 5px;
+  border: solid 1px hsla(0, 0%, 0%, .1);
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 4rem 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+li + li {
+  border-top: solid 1px hsla(0, 0%, 0%, .1);
+}
+
+h3 small {
+  display: block;
+}
+
+small {
+  color: hsla(0, 0%, 0%, .4);
+}
