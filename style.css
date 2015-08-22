@@ -35,12 +35,12 @@ input[type=text], button {
   width: 100%;
   font-size: large;
   box-sizing: border-box;
-  padding: 5px;
+  padding: .5rem 5px;
   border: solid 1px hsla(0, 0%, 0%, .1);
+  text-align: center;
 }
 
 button {
-  padding: 10px 5px;
   background-color: hsla(210, 25%, 90%, 1);
 }
 
@@ -48,8 +48,10 @@ main {
   padding-top: 4rem;
 }
 
-h2, h4 {
+h1, h2, h4 {
   text-align: center;
+}
+h2, h4 {
   padding: .5em 0;
 }
 
