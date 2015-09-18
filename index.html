@@ -67,7 +67,7 @@
           this.singer = localStorage.singer;
           this.queue = $firebaseArray(new Firebase('https://blistering-inferno-5505.firebaseio.com/queue'));
 
-          var csv = '88122ee1a82f49f2aab6dda8c2c44209.csv';
+          var csv = '8cf8f7de24ac2a75daf5a6608922919f.csv';
           $http.get(csv).success(function(data) {
             this.songs = data.split('\n').slice(1).map(function(line) {
               if (!line) return;
