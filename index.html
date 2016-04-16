@@ -68,20 +68,20 @@
           this.singer = localStorage.singer;
           this.queue = $firebaseArray(new Firebase('https://wafflejs-karaoke.firebaseio.com/queue'));
 
-          var csv = 'c49a4342f4e8720406970efae1d397b4.csv';
+          var csv = 'a73211324d6fc692c25a99fc165bc240.csv';
           $http.get(csv).success(function(data) {
             this.songs = data.split('\n').slice(1).map(function(line) {
               if (!line) return;
               var values = line.split(';'),
-                  title = values[0].replace(/"/g, ''),
-                  artist = values[1].replace(/"/g, '');
+                  title = values[1].replace(/"/g, ''),
+                  artist = values[2].replace(/"/g, '');
 
               return {
                 search: String([title, artist]),
                 title: title,
                 artist: artist,
-                year: values[2],
-                duo: values[3] === '1',
+                year: values[3],
+                duo: values[4] === '1',
               };
             });
           }.bind(this));
