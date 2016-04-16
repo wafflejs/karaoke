@@ -66,7 +66,7 @@
 
         function Index($http, $firebaseArray) {
           this.singer = localStorage.singer;
-          this.queue = $firebaseArray(new Firebase('https://blistering-inferno-5505.firebaseio.com/queue'));
+          this.queue = $firebaseArray(new Firebase('https://wafflejs-karaoke.firebaseio.com/queue'));
 
           var csv = 'c49a4342f4e8720406970efae1d397b4.csv';
           $http.get(csv).success(function(data) {
